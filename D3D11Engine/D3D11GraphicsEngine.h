@@ -74,7 +74,7 @@ public:
 	virtual XRESULT CreateConstantBuffer(D3D11ConstantBuffer** outCB, void* data, int size);
 
 	/** Returns a list of available display modes */
-	virtual XRESULT GetDisplayModeList(std::vector<DisplayModeInfo>* modeList, bool includeSuperSampling = false);
+	virtual XRESULT GetDisplayModeList(std::vector<DisplayModeInfo>* modeList, bool includeSuperSampling = true);
 
 	/** Presents the current frame to the screen */
 	virtual XRESULT Present();

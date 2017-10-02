@@ -73,6 +73,8 @@ namespace Engine
 	{
 		LogInfo() << "Shutting down...";
 
+		exit(0); // I guess better than just crashing...
+
 		delete Engine::RenderingThreadPool; Engine::RenderingThreadPool = NULL;
 		delete Engine::AntTweakBar;	Engine::AntTweakBar = NULL;
 		delete Engine::GAPI; Engine::GAPI = NULL;

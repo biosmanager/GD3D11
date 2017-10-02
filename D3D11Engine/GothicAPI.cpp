@@ -145,7 +145,7 @@ GothicAPI::~GothicAPI(void)
 	//ResetWorld(); // Just let it leak for now. // FIXME: Do this properly
 
 	delete Ocean;
-	delete SkyRenderer;
+	// delete SkyRenderer;
 	delete Inventory;
 	delete LoadedWorldInfo;
 	delete WrappedWorldMesh;
@@ -2731,6 +2731,9 @@ LRESULT GothicAPI::OnWindowMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lP
 #ifdef PUBLIC_RELEASE
 			if (GetAsyncKeyState(VK_CONTROL))
 			{
+				if (Engine::AntTweakBar->GetActive())
+					Engine::GAPI->SaveMenuSettings(MENU_SETTINGS_FILE);
+
 				Engine::AntTweakBar->SetActive(!Engine::AntTweakBar->GetActive());
 				SetEnableGothicInput(!Engine::AntTweakBar->GetActive());
 			}else
@@ -2745,28 +2748,28 @@ LRESULT GothicAPI::OnWindowMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lP
 #endif
 			break;
 
-		case VK_NUMPAD1:
-			if(!Engine::AntTweakBar->GetActive())
-				SpawnVegetationBoxAt(GetCameraPosition());
-			break;
-
-		case VK_NUMPAD2:
-#ifdef PUBLIC_RELEASE
-			if(!Engine::AntTweakBar->GetActive())
-#endif
-				Ocean->AddWaterPatchAt((unsigned int)(GetCameraPosition().x / OCEAN_PATCH_SIZE), (unsigned int)(GetCameraPosition().z / OCEAN_PATCH_SIZE));
-			break;
-
-		case VK_NUMPAD3:
-#ifdef PUBLIC_RELEASE
-			if(!Engine::AntTweakBar->GetActive())
-#endif
-			{
-				for(int x=-1;x<=1;x++)
-					for(int y=-1;y<=1;y++)
-						Ocean->AddWaterPatchAt((unsigned int)((GetCameraPosition().x / OCEAN_PATCH_SIZE) + x), (unsigned int)((GetCameraPosition().z / OCEAN_PATCH_SIZE) + y));	
-			}
-			break;
+//		case VK_NUMPAD1:
+//			if(!Engine::AntTweakBar->GetActive())
+//				SpawnVegetationBoxAt(GetCameraPosition());
+//			break;
+//
+//		case VK_NUMPAD2:
+//#ifdef PUBLIC_RELEASE
+//			if(!Engine::AntTweakBar->GetActive())
+//#endif
+//				Ocean->AddWaterPatchAt((unsigned int)(GetCameraPosition().x / OCEAN_PATCH_SIZE), (unsigned int)(GetCameraPosition().z / OCEAN_PATCH_SIZE));
+//			break;
+//
+//		case VK_NUMPAD3:
+//#ifdef PUBLIC_RELEASE
+//			if(!Engine::AntTweakBar->GetActive())
+//#endif
+//			{
+//				for(int x=-1;x<=1;x++)
+//					for(int y=-1;y<=1;y++)
+//						Ocean->AddWaterPatchAt((unsigned int)((GetCameraPosition().x / OCEAN_PATCH_SIZE) + x), (unsigned int)((GetCameraPosition().z / OCEAN_PATCH_SIZE) + y));	
+//			}
+//			break;
 		}
 		break;
 
@@ -4082,7 +4085,10 @@ XRESULT GothicAPI::SaveMenuSettings(const std::string& file)
 
 	fwrite(&s.EnableGodRays, sizeof(s.EnableGodRays), 1, f);
 	fwrite(&s.EnableTesselation, sizeof(s.EnableTesselation), 1, f);
+	fwrite(&s.AllowWorldMeshTesselation, sizeof(s.AllowWorldMeshTesselation), 1, f);
+
 	fwrite(&s.EnableSMAA, sizeof(s.EnableSMAA), 1, f);
+	fwrite(&s.SharpenFactor, sizeof(s.SharpenFactor), 1, f);
 
 	fwrite(&s.EnablePointlightShadows, sizeof(s.EnablePointlightShadows), 1, f);
 
@@ -4173,7 +4179,10 @@ XRESULT GothicAPI::LoadMenuSettings(const std::string& file)
 	if (version == 1)
 		s.EnableTesselation = false;
 
+	fread(&s.AllowWorldMeshTesselation, sizeof(s.AllowWorldMeshTesselation), 1, f);
+	
 	fread(&s.EnableSMAA, sizeof(s.EnableSMAA), 1, f);
+	fread(&s.SharpenFactor, sizeof(s.SharpenFactor), 1, f);
 
 	fread(&s.EnablePointlightShadows, sizeof(s.EnablePointlightShadows), 1, f);
 

@@ -15,7 +15,7 @@ D2DSettingsDialog::D2DSettingsDialog(D2DView* view, D2DSubView* parent) : D2DDia
 	Header->SetCaption("Settings");
 
 	// Get display modes
-	Engine::GraphicsEngine->GetDisplayModeList(&Resolutions, false);
+	Engine::GraphicsEngine->GetDisplayModeList(&Resolutions, true);
 
 	// Find current
 	ResolutionSetting = 0;

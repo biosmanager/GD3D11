@@ -494,7 +494,7 @@ struct GothicRendererSettings
 		DrawFog = true;
 		EnableHDR = false;
 		ReplaceSunDirection = false;
-		AtmosphericScattering = false; // Use original sky
+		AtmosphericScattering = true; // fix invisible UI
 		EnableDynamicLighting = true;
 
 #ifndef BUILD_GOTHIC_1_08k
@@ -584,7 +584,7 @@ struct GothicRendererSettings
 		FOVHoriz = 90.0f;
 		FOVVert = 90.0f;
 
-		SharpenFactor = 0.8f;
+		SharpenFactor = 0.4f;
 
 		RainRadiusRange = 5000.0f;
 		RainHeightRange = 1000.0f;

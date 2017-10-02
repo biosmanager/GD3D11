@@ -96,7 +96,7 @@ public:
 	virtual XRESULT CreateShadowedPointLight(BaseShadowedPointLight** outPL, VobLightInfo* lightInfo, bool dynamic = false);
 
 	/** Returns a list of available display modes */
-	virtual XRESULT GetDisplayModeList(std::vector<DisplayModeInfo>* modeList, bool includeSuperSampling = false);
+	virtual XRESULT GetDisplayModeList(std::vector<DisplayModeInfo>* modeList, bool includeSuperSampling = true);
 
 	/** Presents the current frame to the screen */
 	virtual XRESULT Present();

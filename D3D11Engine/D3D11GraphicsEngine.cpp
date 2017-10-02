@@ -861,7 +861,7 @@ XRESULT D3D11GraphicsEngine::GetDisplayModeList(std::vector<DisplayModeInfo>* mo
 		info.Bpp = 32;
 
 		if(info.Width > (unsigned long)desktop.right || info.Height > (unsigned long)desktop.bottom)
-			continue; // Skip bigger sizes than the desktop rect, because DXGI doesn't like them apparently TODO: Fix this if possible!
+		  continue; // Skip bigger sizes than the desktop rect, because DXGI doesn't like them apparently TODO: Fix this if possible!
 
 		if(!modeList->empty() && memcmp(&modeList->back(), &info, sizeof(info)) == 0)
 			continue; // Already have that in list

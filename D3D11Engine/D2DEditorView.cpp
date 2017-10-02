@@ -1077,6 +1077,7 @@ bool D2DEditorView::OnWindowMessage(HWND hWnd, unsigned int msg, WPARAM wParam, 
 		return true;
 
 	bool enableEditorPanel = zCOption::GetOptions()->IsParameter("XEnableEditorPanel");
+	enableEditorPanel = true;
 
 #if defined(BUILD_GOTHIC_1_08k) || !defined(PUBLIC_RELEASE)
 	// zCOptions not working for G1 yet
